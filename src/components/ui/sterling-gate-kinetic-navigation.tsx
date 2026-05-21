@@ -20,6 +20,8 @@ export interface KineticNavProps {
 export function KineticNav({ brand, links }: KineticNavProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastYRef = useRef(0);
 
   // Setup easing once
   useEffect(() => {
@@ -32,6 +34,33 @@ export function KineticNav({ brand, links }: KineticNavProps) {
       gsap.defaults({ ease: "power2.out", duration: 0.7 });
     }
   }, []);
+
+  // Scroll direction listener — hide on scroll down, show on scroll up
+  useEffect(() => {
+    lastYRef.current = window.scrollY;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastYRef.current;
+        if (isOpen) {
+          setHidden(false);
+        } else if (y < 80) {
+          setHidden(false);
+        } else if (delta > 6) {
+          setHidden(true);
+        } else if (delta < -4) {
+          setHidden(false);
+        }
+        lastYRef.current = y;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isOpen]);
 
   // Open/close animation
   useEffect(() => {
@@ -69,9 +98,24 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           );
       } else {
         if (navWrap) navWrap.setAttribute("data-nav", "closed");
-        tl.to(overlay, { autoAlpha: 0 })
-          .to(menu, { xPercent: 120 }, "<")
-          .to(menuButtonTexts, { yPercent: 0 }, "<")
+        // Symmetrical reverse: links exit first, then panels slide back out, overlay fades
+        tl.to(menuLinks, {
+          yPercent: 140,
+          rotate: 8,
+          stagger: { each: 0.05, from: "end" },
+          duration: 0.45,
+        })
+          .to(
+            bgPanels,
+            {
+              xPercent: 101,
+              stagger: { each: 0.08, from: "end" },
+              duration: 0.55,
+            },
+            "<+=0.05",
+          )
+          .to(overlay, { autoAlpha: 0, duration: 0.4 }, "<")
+          .to(menuButtonTexts, { yPercent: 0, stagger: 0.12 }, "<")
           .to(menuButtonIcon, { rotate: 0 }, "<")
           .set(navWrap, { display: "none" });
       }
@@ -91,8 +135,12 @@ export function KineticNav({ brand, links }: KineticNavProps) {
 
   return (
     <div ref={containerRef} className="pointer-events-none fixed inset-0 z-50">
-      {/* Top bar */}
-      <div className="pointer-events-auto relative z-[60] flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
+      {/* Top bar — slides up on scroll down, slides down on scroll up */}
+      <div
+        className={`pointer-events-auto relative z-[60] flex items-center justify-between gap-6 px-6 py-6 transition-transform duration-500 ease-[cubic-bezier(0.65,0.01,0.05,0.99)] md:px-12 md:py-8 ${
+          hidden ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
         <a
           href="#top"
           className="font-display text-2xl tracking-tight text-[#f5f3ee] md:text-3xl"
@@ -100,12 +148,33 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           {brand}
         </a>
 
+        {/* Desktop inline nav */}
+        <nav className="hidden md:flex items-center gap-1 rounded-full border border-[#f5f3ee]/10 bg-[#0a0a0a]/50 px-2 py-1.5 backdrop-blur-md">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="group relative rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#f5f3ee]/80 transition-colors hover:text-[#f5f3ee]"
+            >
+              <span className="relative z-10">{l.label}</span>
+              <span className="absolute inset-0 rounded-full bg-[#f5f3ee]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            </a>
+          ))}
+          <a
+            href="#contact"
+            className="ml-1 rounded-full bg-[#f5f3ee] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#0a0a0a] transition-colors hover:bg-[#a8b89a]"
+          >
+            Inquire
+          </a>
+        </nav>
+
+        {/* Mobile menu button */}
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-sm font-serif font-extrabold flex-row flex items-center justify-center"
+          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-sm font-serif font-extrabold flex-row flex items-center justify-center md:hidden"
         >
           <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.25em]">
             <span className="btn-text block">Menu</span>
@@ -117,9 +186,9 @@ export function KineticNav({ brand, links }: KineticNavProps) {
         </button>
       </div>
 
-      {/* Overlay menu */}
+      {/* Overlay menu (mobile) */}
       <div
-        className="nav-overlay-wrapper fixed inset-0"
+        className="nav-overlay-wrapper fixed inset-0 md:hidden"
         style={{ display: "none" }}
         data-nav="closed"
       >
