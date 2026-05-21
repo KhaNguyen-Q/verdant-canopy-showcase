@@ -7,8 +7,6 @@ import {
   type ReactNode,
 } from "react";
 import {
-  Menu,
-  X,
   ArrowUpRight,
   Leaf,
   TreePine,
@@ -18,6 +16,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import { KineticNav } from "@/components/ui/sterling-gate-kinetic-navigation";
 
 export const Route = createFileRoute("/")({
   component: Index,
