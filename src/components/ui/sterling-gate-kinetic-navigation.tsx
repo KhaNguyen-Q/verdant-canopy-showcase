@@ -105,7 +105,7 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           onClick={() => setIsOpen((v) => !v)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          className="nav-close-btn group relative flex h-12 items-center gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#a8b89a]/40 hover:bg-[#1e291b]/70"
+          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#a8b89a]/40 hover:bg-[#1e291b]/70 text-sm font-serif font-extrabold flex-row flex items-center justify-center"
         >
           <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.25em]">
             <span className="btn-text block">Menu</span>
