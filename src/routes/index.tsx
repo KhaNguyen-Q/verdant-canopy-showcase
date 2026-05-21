@@ -648,7 +648,7 @@ function Footer() {
 function Index() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-[#f5f3ee]">
-      <Header />
+      <KineticNav brand={ASSETS.brand.name} links={NAV_LINKS} />
       <Hero />
       <Philosophy />
       <Services />
