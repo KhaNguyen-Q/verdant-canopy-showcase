@@ -92,7 +92,7 @@ export function KineticNav({ brand, links }: KineticNavProps) {
   return (
     <div ref={containerRef} className="pointer-events-none fixed inset-0 z-50">
       {/* Top bar */}
-      <div className="pointer-events-auto flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
+      <div className="pointer-events-auto relative z-[60] flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
         <a
           href="#top"
           className="font-display text-2xl tracking-tight text-[#f5f3ee] md:text-3xl"
@@ -105,7 +105,7 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           onClick={() => setIsOpen((v) => !v)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#a8b89a]/40 hover:bg-[#1e291b]/70 text-sm font-serif font-extrabold flex-row flex items-center justify-center"
+          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-sm font-serif font-extrabold flex-row flex items-center justify-center"
         >
           <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.25em]">
             <span className="btn-text block">Menu</span>
