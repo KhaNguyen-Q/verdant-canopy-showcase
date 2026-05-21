@@ -7,8 +7,6 @@ import {
   type ReactNode,
 } from "react";
 import {
-  Menu,
-  X,
   ArrowUpRight,
   Leaf,
   TreePine,
@@ -18,6 +16,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import { KineticNav } from "@/components/ui/sterling-gate-kinetic-navigation";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -210,69 +209,12 @@ function Reveal({
 /* ============================================================
    Header
    ============================================================ */
-function Header() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { href: "#philosophy", label: "Philosophy" },
-    { href: "#services", label: "Services" },
-    { href: "#work", label: "Selected Work" },
-    { href: "#contact", label: "Contact" },
-  ];
-  return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
-        <a href="#top" className="group flex items-center gap-3">
-          <span className="font-display text-2xl tracking-tight text-[#f5f3ee] md:text-3xl">
-            {ASSETS.brand.name}
-          </span>
-        </a>
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/30 text-[#f5f3ee] backdrop-blur transition hover:bg-black/50"
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </div>
-
-      <div
-        className={`pointer-events-none fixed inset-0 transition-opacity duration-500 ${
-          open ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div
-          className={`absolute inset-0 bg-[#0a0a0a]/95 backdrop-blur-xl transition-opacity ${
-            open ? "pointer-events-auto" : ""
-          }`}
-          onClick={() => setOpen(false)}
-        />
-        <nav
-          className={`relative flex h-full flex-col items-start justify-center gap-6 px-8 md:px-24 ${
-            open ? "pointer-events-auto" : ""
-          }`}
-        >
-          {links.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="font-display text-5xl text-[#f5f3ee]/90 transition hover:text-[#a8b89a] md:text-7xl"
-              style={{
-                transitionDelay: open ? `${100 + i * 60}ms` : "0ms",
-                transform: open ? "translateY(0)" : "translateY(20px)",
-                opacity: open ? 1 : 0,
-                transitionProperty: "transform, opacity, color",
-                transitionDuration: "700ms",
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
-  );
-}
+const NAV_LINKS = [
+  { href: "#philosophy", label: "Philosophy" },
+  { href: "#services", label: "Services" },
+  { href: "#work", label: "Selected Work" },
+  { href: "#contact", label: "Contact" },
+];
 
 /* ============================================================
    Sections
@@ -706,7 +648,7 @@ function Footer() {
 function Index() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-[#f5f3ee]">
-      <Header />
+      <KineticNav brand={ASSETS.brand.name} links={NAV_LINKS} />
       <Hero />
       <Philosophy />
       <Services />
