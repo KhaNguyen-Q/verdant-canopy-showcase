@@ -72,17 +72,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sylvan & Co. — Elite Arborists & Tree Preservation" },
+      { title: "MenInTrees" },
       {
         name: "description",
         content:
           "Sylvan & Co. is an elite arborist studio practicing tree preservation, structural pruning, and large-scale removal for discerning estates.",
       },
       { name: "author", content: "Sylvan & Co." },
-      { property: "og:title", content: "Sylvan & Co. — Elite Arborists" },
-      { property: "og:description", content: "Preserving nature's architecture." },
+      { property: "og:title", content: "MenInTrees" },
+      { property: "og:description", content: "Elite Arborists & Tree Preservation" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "MenInTrees" },
+      { name: "description", content: "Elite Arborists & Tree Preservation" },
+      { name: "twitter:description", content: "Elite Arborists & Tree Preservation" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/568a82de-c44a-4e34-a232-126f8b2f6460" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/568a82de-c44a-4e34-a232-126f8b2f6460" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
