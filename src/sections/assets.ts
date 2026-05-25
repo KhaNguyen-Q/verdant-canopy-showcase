@@ -6,7 +6,7 @@ import { Leaf, TreePine, Scissors, Axe } from "lucide-react";
    ============================================================ */
 export const ASSETS = {
   brand: {
-    name: "Sylvan & Co.",
+    name: "Men in Trees",
     tagline: "Arboriculture · Est. 1998",
   },
   hero: {
