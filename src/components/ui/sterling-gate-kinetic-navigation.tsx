@@ -63,59 +63,63 @@ export function KineticNav({ brand, links }: KineticNavProps) {
   }, [isOpen]);
 
   // Open/close animation
+  const isFirstRun = useRef(true);
   useEffect(() => {
     if (!containerRef.current) return;
-    const ctx = gsap.context(() => {
-      const root = containerRef.current!;
-      const navWrap = root.querySelector(".nav-overlay-wrapper") as HTMLElement | null;
-      const menu = root.querySelector(".menu-content");
-      const overlay = root.querySelector(".overlay");
-      const bgPanels = root.querySelectorAll(".backdrop-layer");
-      const menuLinks = root.querySelectorAll(".nav-link");
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      if (!isOpen) return;
+    }
+    const root = containerRef.current;
+    const navWrap = root.querySelector(".nav-overlay-wrapper") as HTMLElement | null;
+    const menu = root.querySelector(".menu-content");
+    const overlay = root.querySelector(".overlay");
+    const bgPanels = root.querySelectorAll(".backdrop-layer");
+    const menuLinks = root.querySelectorAll(".nav-link");
 
-      const tl = gsap.timeline();
+    const tl = gsap.timeline();
 
-      if (isOpen) {
-        if (navWrap) navWrap.setAttribute("data-nav", "open");
-        tl.set(navWrap, { display: "block" })
-          .set(menu, { xPercent: 0 }, "<")
-          .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
-          .fromTo(
-            bgPanels,
-            { xPercent: 101 },
-            { xPercent: 0, stagger: 0.1, duration: 0.6 },
-            "<",
-          )
-          .fromTo(
-            menuLinks,
-            { yPercent: 140, rotate: 8 },
-            { yPercent: 0, rotate: 0, stagger: 0.06 },
-            "<+=0.3",
-          );
-      } else {
-        if (navWrap) navWrap.setAttribute("data-nav", "closed");
-        // Symmetrical reverse: links exit first, then panels slide back out, overlay fades
-        tl.to(menuLinks, {
-          yPercent: 140,
-          rotate: 8,
-          stagger: { each: 0.05, from: "end" },
-          duration: 0.45,
-        })
-          .to(
-            bgPanels,
-            {
-              xPercent: 101,
-              stagger: { each: 0.08, from: "end" },
-              duration: 0.55,
-            },
-            "<+=0.05",
-          )
-          .to(overlay, { autoAlpha: 0, duration: 0.4 }, "<")
-          .set(navWrap, { display: "none" });
-      }
-    }, containerRef);
+    if (isOpen) {
+      if (navWrap) navWrap.setAttribute("data-nav", "open");
+      tl.set(navWrap, { display: "block" })
+        .set(menu, { xPercent: 0 }, "<")
+        .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
+        .fromTo(
+          bgPanels,
+          { xPercent: 101 },
+          { xPercent: 0, stagger: 0.1, duration: 0.6 },
+          "<",
+        )
+        .fromTo(
+          menuLinks,
+          { yPercent: 140, rotate: 8 },
+          { yPercent: 0, rotate: 0, stagger: 0.06 },
+          "<+=0.3",
+        );
+    } else {
+      if (navWrap) navWrap.setAttribute("data-nav", "closed");
+      tl.to(menuLinks, {
+        yPercent: 140,
+        rotate: 8,
+        stagger: { each: 0.05, from: "end" },
+        duration: 0.45,
+      })
+        .to(
+          bgPanels,
+          {
+            xPercent: 101,
+            stagger: { each: 0.08, from: "end" },
+            duration: 0.55,
+          },
+          "<+=0.05",
+        )
+        .to(overlay, { autoAlpha: 0, duration: 0.4 }, "<")
+        .set(navWrap, { display: "none" });
+    }
 
-    return () => ctx.revert();
+    return () => {
+      tl.kill();
+    };
   }, [isOpen]);
 
   // Escape to close
