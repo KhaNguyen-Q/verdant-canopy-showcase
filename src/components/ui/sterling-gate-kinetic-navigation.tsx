@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { Plus } from "lucide-react";
+import { LogoButton } from "./logo-button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
@@ -141,54 +141,43 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
+        {/* 3D shiny logo — toggles the navigation overlay */}
+        <LogoButton
+          onClick={() => setIsOpen((v) => !v)}
+          isOpen={isOpen}
+          size={68}
+          ariaLabel={isOpen ? "Close menu" : "Open menu"}
+        />
+
+        {/* Brand wordmark */}
         <a
           href="#top"
-          className="font-display text-2xl tracking-tight text-[#f5f3ee] md:text-3xl"
+          className="font-display hidden text-lg tracking-[0.18em] text-[#f5f3ee] uppercase sm:block"
         >
           {brand}
         </a>
 
-        {/* Desktop inline nav */}
-        <nav className="hidden md:flex items-center gap-1 rounded-full border border-[#f5f3ee]/10 bg-[#0a0a0a]/50 px-2 py-1.5 backdrop-blur-md">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="group relative rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#f5f3ee]/80 transition-colors hover:text-[#f5f3ee]"
-            >
-              <span className="relative z-10">{l.label}</span>
-              <span className="absolute inset-0 rounded-full bg-[#f5f3ee]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </a>
-          ))}
-          <a
-            href="#contact"
-            className="ml-1 rounded-full bg-[#f5f3ee] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#0a0a0a] transition-colors hover:bg-[#a8b89a]"
-          >
-            Inquire
-          </a>
-        </nav>
-
-        {/* Mobile menu button */}
+        {/* Right-aligned hint that doubles as the close indicator (for the GSAP timeline) */}
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          className="nav-close-btn group relative h-12 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-sm font-serif font-extrabold flex-row flex items-center justify-center md:hidden"
+          className="nav-close-btn group relative ml-auto h-11 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-xs font-medium flex items-center justify-center"
         >
-          <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.25em]">
+          <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.3em]">
             <span className="btn-text block">Menu</span>
             <span className="btn-text block">Close</span>
           </span>
-          <span className="menu-button-icon inline-flex h-5 w-5 items-center justify-center">
-            <Plus size={18} strokeWidth={1.5} />
+          <span className="menu-button-icon inline-flex h-4 w-4 items-center justify-center text-base leading-none">
+            +
           </span>
         </button>
       </div>
 
-      {/* Overlay menu (mobile) */}
+      {/* Overlay menu */}
       <div
-        className="nav-overlay-wrapper fixed inset-0 md:hidden"
+        className="nav-overlay-wrapper fixed inset-0"
         style={{ display: "none" }}
         data-nav="closed"
       >
