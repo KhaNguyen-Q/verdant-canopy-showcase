@@ -72,8 +72,6 @@ export function KineticNav({ brand, links }: KineticNavProps) {
       const overlay = root.querySelector(".overlay");
       const bgPanels = root.querySelectorAll(".backdrop-layer");
       const menuLinks = root.querySelectorAll(".nav-link");
-      const menuButtonTexts = root.querySelectorAll(".nav-close-btn .btn-text");
-      const menuButtonIcon = root.querySelector(".menu-button-icon");
 
       const tl = gsap.timeline();
 
@@ -81,8 +79,6 @@ export function KineticNav({ brand, links }: KineticNavProps) {
         if (navWrap) navWrap.setAttribute("data-nav", "open");
         tl.set(navWrap, { display: "block" })
           .set(menu, { xPercent: 0 }, "<")
-          .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.18 })
-          .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 135 }, "<")
           .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
           .fromTo(
             bgPanels,
@@ -115,8 +111,6 @@ export function KineticNav({ brand, links }: KineticNavProps) {
             "<+=0.05",
           )
           .to(overlay, { autoAlpha: 0, duration: 0.4 }, "<")
-          .to(menuButtonTexts, { yPercent: 0, stagger: 0.12 }, "<")
-          .to(menuButtonIcon, { rotate: 0 }, "<")
           .set(navWrap, { display: "none" });
       }
     }, containerRef);
@@ -141,38 +135,21 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        {/* 3D shiny logo — toggles the navigation overlay */}
-        <LogoButton
-          onClick={() => setIsOpen((v) => !v)}
-          isOpen={isOpen}
-          size={68}
-          ariaLabel={isOpen ? "Close menu" : "Open menu"}
-        />
-
-        {/* Brand wordmark */}
+        {/* Brand wordmark on the left */}
         <a
           href="#top"
-          className="font-display hidden text-lg tracking-[0.18em] text-[#f5f3ee] uppercase sm:block"
+          className="font-display text-lg tracking-[0.18em] text-[#f5f3ee] uppercase"
         >
           {brand}
         </a>
 
-        {/* Right-aligned hint that doubles as the close indicator (for the GSAP timeline) */}
-        <button
-          type="button"
+        {/* 3D shiny logo on the right — toggles the navigation overlay */}
+        <LogoButton
           onClick={() => setIsOpen((v) => !v)}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-          className="nav-close-btn group relative ml-auto h-11 gap-3 overflow-hidden rounded-full border border-[#f5f3ee]/15 bg-[#0a0a0a]/60 px-5 text-[#f5f3ee] backdrop-blur-md transition hover:border-[#f5f3ee]/40 hover:bg-[#141815]/80 text-xs font-medium flex items-center justify-center"
-        >
-          <span className="relative block h-4 overflow-hidden text-[10px] uppercase tracking-[0.3em]">
-            <span className="btn-text block">Menu</span>
-            <span className="btn-text block">Close</span>
-          </span>
-          <span className="menu-button-icon inline-flex h-4 w-4 items-center justify-center text-base leading-none">
-            +
-          </span>
-        </button>
+          isOpen={isOpen}
+          size={56}
+          ariaLabel={isOpen ? "Close menu" : "Open menu"}
+        />
       </div>
 
       {/* Overlay menu */}
