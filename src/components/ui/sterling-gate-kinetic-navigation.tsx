@@ -76,6 +76,7 @@ export function KineticNav({ brand, links }: KineticNavProps) {
     const overlay = root.querySelector(".overlay");
     const bgPanels = root.querySelectorAll(".backdrop-layer");
     const menuLinks = root.querySelectorAll(".nav-link");
+    const footerLabels = root.querySelectorAll(".nav-footer-label");
 
     const tl = gsap.timeline();
 
@@ -95,15 +96,17 @@ export function KineticNav({ brand, links }: KineticNavProps) {
           { yPercent: 140, rotate: 8 },
           { yPercent: 0, rotate: 0, stagger: 0.06 },
           "<+=0.3",
-        );
+        )
+        .fromTo(footerLabels, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, "<+=0.2");
     } else {
       if (navWrap) navWrap.setAttribute("data-nav", "closed");
-      tl.to(menuLinks, {
-        yPercent: 140,
-        rotate: 8,
-        stagger: { each: 0.05, from: "end" },
-        duration: 0.45,
-      })
+      tl.to(footerLabels, { autoAlpha: 0, duration: 0.3 })
+        .to(menuLinks, {
+          yPercent: 140,
+          rotate: 8,
+          stagger: { each: 0.05, from: "end" },
+          duration: 0.45,
+        })
         .to(
           bgPanels,
           {
@@ -193,8 +196,8 @@ export function KineticNav({ brand, links }: KineticNavProps) {
             </ul>
 
             <div className="flex items-end justify-between text-[10px] uppercase tracking-[0.3em] text-[#f5f3ee]/50">
-              <span>Est. 1998</span>
-              <span>Arboriculture</span>
+              <span className="nav-footer-label">Est. 2025</span>
+              <span className="nav-footer-label">Arboriculture</span>
             </div>
           </nav>
         </div>
