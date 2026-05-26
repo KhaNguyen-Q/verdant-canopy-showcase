@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { LogoButton } from "./logo-button";
+import { ASSETS } from "@/sections/assets";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
@@ -172,10 +173,14 @@ export function KineticNav({ brand, links }: KineticNavProps) {
         />
 
         <div className="menu-content pointer-events-auto absolute inset-y-0 right-0 flex w-full max-w-md flex-col md:max-w-lg">
-          {/* Layered moss/obsidian backdrop panels */}
-          <div className="backdrop-layer absolute inset-0 bg-[#0a0a0a]" />
-          <div className="backdrop-layer absolute inset-0 bg-[#141815]" />
-          <div className="backdrop-layer absolute inset-0 bg-[#1e291b]" />
+          {/* Dark seamless background image — swap URL in src/sections/assets.ts */}
+          <div
+            className="backdrop-layer absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${ASSETS.nav.backgroundImage})`,
+            }}
+          />
+          <div className="backdrop-layer absolute inset-0 bg-[#0a0a0a]/80" />
 
           <nav className="relative flex h-full flex-col justify-between px-8 pt-28 pb-12 md:px-14">
             <ul className="space-y-2">

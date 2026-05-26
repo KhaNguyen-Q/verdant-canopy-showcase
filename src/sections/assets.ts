@@ -9,6 +9,11 @@ export const ASSETS = {
     name: "Men in Trees",
     tagline: "Arboriculture · Est. 1998",
   },
+  nav: {
+    /* Swap this URL to change the menu background image */
+    backgroundImage:
+      "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2000&q=80",
+  },
   hero: {
     video: "/videos/hero.mp4",
     poster:
