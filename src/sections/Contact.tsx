@@ -85,11 +85,12 @@ export function ContactSection() {
           </p>
         </Reveal>
 
-        <Reveal className="col-span-12 md:col-span-7" delay={150}>
+        <Reveal className="col-span-12 min-w-0 md:col-span-7" delay={150}>
           <form
             onSubmit={handleSubmit}
-            className="space-y-8 border border-white/10 bg-black/40 p-8 backdrop-blur md:p-12"
+            className="w-full max-w-full space-y-8 border border-white/10 bg-black/40 p-6 backdrop-blur sm:p-8 md:p-12"
             noValidate
+
           >
             <Field label="Name" required>
               <input
