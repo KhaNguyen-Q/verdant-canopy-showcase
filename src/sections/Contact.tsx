@@ -70,7 +70,7 @@ export function ContactSection() {
         />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-12 px-6 md:px-12">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-12 gap-x-6 px-6 md:gap-x-12 md:px-12">
         <Reveal className="col-span-12 md:col-span-5">
           <p className="mb-8 text-xs uppercase tracking-[0.3em] text-[#a8b89a]">
             — Request a Consultation
