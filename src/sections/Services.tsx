@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ASSETS } from "./assets";
 import { Reveal } from "./_shared";
@@ -10,19 +11,50 @@ function ServiceCard({
   index: number;
 }) {
   const Icon = service.icon;
+  const cardRef = useRef<HTMLAnchorElement | null>(null);
+  const [active, setActive] = useState(false);
+
+  // On touch devices, reveal the image when the card scrolls into the
+  // central band of the viewport so mobile users see the hover animation.
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const isTouch =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(hover: none)").matches ||
+        "ontouchstart" in window);
+    if (!isTouch) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => setActive(e.isIntersecting));
+      },
+      {
+        // Trigger when the card crosses the middle ~40% of the viewport
+        rootMargin: "-35% 0px -35% 0px",
+        threshold: 0,
+      },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <Reveal delay={index * 80}>
       <a
+        ref={cardRef}
         href="#contact"
-        className="group relative block aspect-[4/5] overflow-hidden border-t border-white/10"
+        data-active={active ? "true" : "false"}
+        className="service-card group relative block aspect-[4/5] overflow-hidden border-t border-white/10"
       >
         <img
           src={service.image}
           alt={service.title}
-          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-[1200ms] ease-out group-hover:scale-105 group-hover:opacity-100"
+          className="service-card__img absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-[1200ms] ease-out group-hover:scale-105 group-hover:opacity-100"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 via-[#0a0a0a]/60 to-[#0a0a0a]/95 transition-opacity duration-700 group-hover:from-black/30 group-hover:via-black/40 group-hover:to-black/80" />
+        <div className="service-card__scrim absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 via-[#0a0a0a]/60 to-[#0a0a0a]/95 transition-opacity duration-700 group-hover:from-black/30 group-hover:via-black/40 group-hover:to-black/80" />
 
         <div className="relative z-10 flex h-full flex-col justify-between p-8">
           <div className="flex items-start justify-between">
@@ -74,6 +106,23 @@ export function Services() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        /* Scroll-triggered reveal for touch devices — mirrors the
+           desktop hover animation so mobile users get the same effect. */
+        .service-card[data-active="true"] .service-card__img {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+        .service-card[data-active="true"] .service-card__scrim {
+          background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.8)
+          );
+        }
+      `}</style>
     </section>
   );
 }
