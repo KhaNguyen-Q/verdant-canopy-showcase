@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-[#f5f3ee]">
+    <main className="min-h-screen overflow-x-clip bg-[#0a0a0a] text-[#f5f3ee]">
       <KineticNav brand={ASSETS.brand.name} links={NAV_LINKS} />
       <Hero />
       <Philosophy />

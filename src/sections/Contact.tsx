@@ -70,8 +70,8 @@ export function ContactSection() {
         />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-12 px-6 md:px-12">
-        <Reveal className="col-span-12 md:col-span-5">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-12 gap-x-6 px-6 md:gap-x-12 md:px-12">
+        <Reveal className="col-span-12 min-w-0 md:col-span-5">
           <p className="mb-8 text-xs uppercase tracking-[0.3em] text-[#a8b89a]">
             — Request a Consultation
           </p>
@@ -85,11 +85,12 @@ export function ContactSection() {
           </p>
         </Reveal>
 
-        <Reveal className="col-span-12 md:col-span-7" delay={150}>
+        <Reveal className="col-span-12 min-w-0 md:col-span-7" delay={150}>
           <form
             onSubmit={handleSubmit}
-            className="space-y-8 border border-white/10 bg-black/40 p-8 backdrop-blur md:p-12"
+            className="w-full max-w-full space-y-8 border border-white/10 bg-black/40 p-6 backdrop-blur sm:p-8 md:p-12"
             noValidate
+
           >
             <Field label="Name" required>
               <input
