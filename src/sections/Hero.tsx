@@ -10,6 +10,8 @@ export function Hero() {
         poster={ASSETS.hero.poster}
         className="h-full w-full"
         overlayClassName="bg-gradient-to-b from-black/60 via-black/30 to-black/80"
+        fadeLoop
+        fadeDuration={1}
       >
         <div className="relative z-10 flex h-full flex-col justify-end px-6 pb-20 md:px-12 md:pb-28">
           <div className="grid w-full grid-cols-12 items-end gap-6">
