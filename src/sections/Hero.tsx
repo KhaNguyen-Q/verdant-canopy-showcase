@@ -9,7 +9,7 @@ export function Hero() {
         src={ASSETS.hero.video}
         poster={ASSETS.hero.poster}
         className="h-full w-full"
-        overlayClassName="bg-gradient-to-b from-black/60 via-black/30 to-black/80"
+        overlayClassName="bg-gradient-to-b from-black/80 via-black/65 to-black/90"
         fadeLoop
         fadeDuration={1}
       >
@@ -30,9 +30,9 @@ export function Hero() {
             <Reveal className="col-span-12 md:col-span-1 md:justify-self-end" delay={300}>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#f5f3ee]/80 transition hover:text-[#f5f3ee]"
+                className="group inline-flex items-center gap-3 rounded-full border border-[#f5f3ee]/40 bg-[#f5f3ee]/5 px-6 py-3 text-base uppercase tracking-[0.25em] text-[#f5f3ee] backdrop-blur-sm transition hover:border-[#f5f3ee] hover:bg-[#f5f3ee]/15 md:text-lg"
               >
-                Inquire <ArrowUpRight size={14} />
+                Inquire <ArrowUpRight size={20} className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             </Reveal>
           </div>

@@ -155,7 +155,7 @@ export function KineticNav({ brand, links }: KineticNavProps) {
         <LogoButton
           onClick={() => setIsOpen((v) => !v)}
           isOpen={isOpen}
-          size={56}
+          size={84}
           ariaLabel={isOpen ? "Close menu" : "Open menu"}
         />
       </div>
