@@ -5,7 +5,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { SERVICE_OPTIONS } from "./assets";
+import { ASSETS, SERVICE_OPTIONS } from "./assets";
 import { BackgroundImage, Reveal } from "./_shared";
 
 type FormState = {
@@ -83,6 +83,67 @@ export function ContactSection() {
             Consultations are offered by appointment across private estates,
             institutions, and architectural projects.
           </p>
+
+          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2">
+            <div>
+              <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-[#a8b89a]">
+                Contact Details
+              </p>
+              <address className="not-italic space-y-3 text-sm leading-relaxed text-[#f5f3ee]/80">
+                <p className="text-[#f5f3ee]/60">{ASSETS.contact.address}</p>
+                <p>
+                  <a
+                    href={ASSETS.contact.phoneHref}
+                    className="transition-colors hover:text-[#a8b89a]"
+                  >
+                    {ASSETS.contact.phone}
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href={ASSETS.contact.emailHref}
+                    className="break-all transition-colors hover:text-[#a8b89a]"
+                  >
+                    {ASSETS.contact.email}
+                  </a>
+                </p>
+              </address>
+            </div>
+
+            <div>
+              <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-[#a8b89a]">
+                Areas Covered
+              </p>
+              <ul className="space-y-2 text-sm text-[#f5f3ee]/80">
+                {ASSETS.contact.areas.map((area) => (
+                  <li key={area}>{area}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-[#a8b89a]">
+              Socials
+            </p>
+            <div className="flex items-center gap-3">
+              {ASSETS.socials.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="inline-flex h-11 w-11 items-center justify-center border border-[#f5f3ee]/20 text-[#f5f3ee]/70 transition-all hover:border-[#a8b89a] hover:text-[#a8b89a]"
+                  >
+                    <Icon size={16} strokeWidth={1.5} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </Reveal>
 
         <Reveal className="col-span-12 min-w-0 md:col-span-7" delay={150}>
