@@ -1,4 +1,4 @@
-import { Leaf, TreePine, Scissors, Axe } from "lucide-react";
+import { Leaf, TreePine, Scissors, Axe, Instagram, Facebook } from "lucide-react";
 
 /* ============================================================
    VISUAL ASSETS — edit these paths to swap in your own files.
@@ -7,13 +7,33 @@ import { Leaf, TreePine, Scissors, Axe } from "lucide-react";
 export const ASSETS = {
   brand: {
     name: "Men in Trees",
-    tagline: "Arboriculture · Est. 1998",
+    tagline: "Arboriculture · Est. 2025",
   },
   nav: {
     /* Swap this URL to change the menu background image */
     backgroundImage:
       "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2000&q=80",
   },
+  contact: {
+    address: "38 Woods Bay Lane, The Archipelago, ON, Canada",
+    phone: "705-774-4656",
+    phoneHref: "tel:+17057744656",
+    email: "Booking@menintree.info",
+    emailHref: "mailto:Booking@menintree.info",
+    areas: ["Woods Bay", "Georgian Bay", "Muskoka", "Bracebridge", "MacTier"],
+  },
+  socials: [
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/men_in_trees1/",
+      icon: Instagram,
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/men.in.trees2025",
+      icon: Facebook,
+    },
+  ],
   hero: {
     video: "/videos/hero.mp4",
     poster:
