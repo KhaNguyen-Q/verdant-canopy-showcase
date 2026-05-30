@@ -36,8 +36,8 @@ export const ASSETS = {
   ],
   hero: {
     video: "/videos/hero.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=80",
+    /* Local poster frame extracted from the start of the hero video — shows instantly while the video lazy-loads. */
+    poster: "/videos/hero-poster.jpg",
   },
   philosophy: {
     video:
