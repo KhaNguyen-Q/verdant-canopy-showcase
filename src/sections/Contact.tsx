@@ -5,7 +5,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { SERVICE_OPTIONS } from "./assets";
+import { ASSETS, SERVICE_OPTIONS } from "./assets";
 import { BackgroundImage, Reveal } from "./_shared";
 
 type FormState = {
