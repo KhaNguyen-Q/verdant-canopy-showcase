@@ -200,9 +200,34 @@ export function KineticNav({ brand, links }: KineticNavProps) {
               ))}
             </ul>
 
-            <div className="flex items-end justify-between text-[10px] uppercase tracking-[0.3em] text-[#f5f3ee]/50">
-              <span className="nav-footer-label">Est. 2025</span>
-              <span className="nav-footer-label">Arboriculture</span>
+            <div className="space-y-6">
+              <div className="nav-footer-label">
+                <p className="mb-3 text-[10px] uppercase tracking-[0.3em] text-[#a8b89a]">
+                  Socials
+                </p>
+                <div className="flex items-center gap-3">
+                  {ASSETS.socials.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.label}
+                        className="inline-flex h-10 w-10 items-center justify-center border border-[#f5f3ee]/20 text-[#f5f3ee]/70 transition-all hover:border-[#a8b89a] hover:text-[#a8b89a]"
+                      >
+                        <Icon size={15} strokeWidth={1.5} />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-end justify-between text-[10px] uppercase tracking-[0.3em] text-[#f5f3ee]/50">
+                <span className="nav-footer-label">Est. 2025</span>
+                <span className="nav-footer-label">Arboriculture</span>
+              </div>
             </div>
           </nav>
         </div>
